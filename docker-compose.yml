@@ -1,0 +1,60 @@
+ version: '3.7'
+ services:
+   # SERVICIO DE FORNTEND
+   frontend:
+     build: './app'
+     # Host port proxy
+     ports:
+       - "3003:3000"
+     volumes:
+       - ./app:/app
+     environment:
+       # If a production enviroment is desired, set the APP_ENV variable to production
+       # APP_ENV: 'production'
+       APP_ENV: 'development'
+     links:
+       - api
+     #depends_on:
+     #  - api
+     networks:
+       - frontend
+   # SERVICIO DE BACKEND
+   api:
+     build: './server'
+      # Host port proxy
+     ports:
+       - "3033:3030"
+     volumes:
+       - ./server:/app
+     depends_on:
+       - db
+     networks:
+       - frontend
+       - backend
+   # SERVICIO DE BASE DE DATOS (MariaDB)
+   db:
+     image: mariadb:10.3
+     restart: always
+     volumes: 
+       - ./mariadb:/var/lib/mysql
+     environment:
+       MYSQL_ROOT_PASSWORD: toor
+       MYSQL_DATABASE: edis_data
+       MYSQL_USER: lisho
+       MYSQL_PASSWORD: toor
+     networks:
+       - backend
+   # SERVICIO DE GESTIÓN DE LA BASE DE DATOS (PHPMYADMIN)
+   phpmyadmin:
+     image: phpmyadmin
+     restart: always
+     ports:
+       - 8083:80
+     environment:
+       - PMA_ARBITRARY=1
+     networks:
+       - backend
+ # REDES ENTRE CONTENEDORES
+ networks:
+   frontend:
+   backend:

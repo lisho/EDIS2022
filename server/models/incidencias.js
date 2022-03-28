@@ -1,5 +1,5 @@
 module.exports = (sequelize, type) => {
-    const Incidencias = sequelize.define("Incidencias", {
+    const Incidencia = sequelize.define("incidencia", {
       id: {
         type: type.INTEGER,
         primaryKey: true,
@@ -11,6 +11,6 @@ module.exports = (sequelize, type) => {
       email: type.STRING,
     });
   
-    return Incidencias;
+    return Incidencia;
   };
   

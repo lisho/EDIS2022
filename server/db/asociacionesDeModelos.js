@@ -1,22 +1,53 @@
-
-
 function applyExtraSetup(sequelize) {
-    console.log(sequelize.models)
-	const { 
-            user
-     } = sequelize.models;
+  console.log(sequelize.models);
+  const {
+    user,
+    tecnico,
+    caso,
+    asignacion,
+    ceas,
+    tsCeas,
+    participante,
+    participacion,
+    incidencia,
+    estado,
+    documento,
+    tipoIncidencia,
+    canalizacion,
+    diagnosticoInicial,
+  } = sequelize.models;
 
-     /* user.belongsToMany(puerta, { through: favorito });
-     puerta.belongsToMany(user, { through: favorito });
+  tecnico.hasMany(user);
+  user.belongsTo(tecnico);
 
-     user.belongsToMany(puerta, { through: calificacion });
-     puerta.belongsToMany(user, { through: calificacion });
+  tecnico.hasMany(incidencia);
+  incidencia.belongsTo(tecnico);
 
-     etiqueta.belongsToMany(puerta, { through: etiquetado });
-     puerta.belongsToMany(etiqueta, { through: etiquetado });
+  ceas.hasMany(tsCeas);
+  tsCeas.belongsTo(ceas);
 
-     etiquetaTipo.hasMany(etiqueta);
-     etiqueta.belongsTo(etiquetaTipo); */
+  tipoIncidencia.hasMany(incidencia);
+  incidencia.belongsTo(tipoIncidencia);
+
+  caso.hasMany(incidencia);
+  incidencia.belongsTo(caso);
+
+  incidencia.hasMany(documento);
+  documento.belongsTo(incidencia);
+
+  estado.hasMany(caso);
+  caso.belongsTo(estado);
+
+  tsCeas.hasMany(caso);
+  caso.belongsTo(tsCeas);
+
+  caso.hasOne(canalizacion);
+
+  tecnico.belongsToMany(caso, { through: asignacion });
+  caso.belongsToMany(tecnico, { through: asignacion });
+
+  participante.belongsToMany(caso, { through: participacion });
+  caso.belongsToMany(participante, { through: participacion });
 }
 
 module.exports = { applyExtraSetup };

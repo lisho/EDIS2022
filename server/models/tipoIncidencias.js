@@ -1,5 +1,5 @@
 module.exports = (sequelize, type) => {
-    const TipoIncidencias = sequelize.define("tipoIncidencias", {
+    const TipoIncidencia = sequelize.define("tipoIncidencia", {
       id: {
         type: type.INTEGER,
         primaryKey: true,
@@ -11,6 +11,6 @@ module.exports = (sequelize, type) => {
       claseIncidencia: type.STRING,
     });
   
-    return TipoIncidencias;
+    return TipoIncidencia;
   };
   

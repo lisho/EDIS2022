@@ -1,5 +1,5 @@
 module.exports = (sequelize, type) => {
-    const Estados = sequelize.define("estados", {
+    const Estado = sequelize.define("estado", {
       id: {
         type: type.INTEGER,
         primaryKey: true,
@@ -9,6 +9,6 @@ module.exports = (sequelize, type) => {
       descripcion: type.STRING,
     });
   
-    return Estados;
+    return Estado;
   };
   

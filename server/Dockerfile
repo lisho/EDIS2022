@@ -18,6 +18,6 @@ RUN npm install
 # start app desarrolllo
 # RUN npm run build
 
-EXPOSE 3033
+EXPOSE 3030
 #CMD node index.js
 CMD npm run start

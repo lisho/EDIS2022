@@ -1,5 +1,5 @@
 module.exports = (sequelize, type) => {
-    const Participaciones = sequelize.define("participaciones", {
+    const Participacion = sequelize.define("participacion", {
       id: {
         type: type.INTEGER,
         primaryKey: true,
@@ -10,6 +10,6 @@ module.exports = (sequelize, type) => {
       
     });
   
-    return Participaciones;
+    return Participacion;
   };
   

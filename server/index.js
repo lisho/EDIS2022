@@ -5,12 +5,12 @@ const path = require("path");
 
 /** Importamos las rutas de la api */
 
-    //const apiRouter = require("./routes/api");
+    const apiRouter = require("./routes/api");
 
 /** Iniciamos el servidor de express */
 const app = express();
 
-const port = process.env.PORT || 3033;
+const port = process.env.PORT || 3030;
 
 /* sincronizamos la base de datos con los modelos */
 
@@ -22,8 +22,9 @@ const port = process.env.PORT || 3033;
 
 //-->  Configuración de cors
 
-/*
+
 const allowlist = ["http://0.0.0.0:4000", 
+                    "http://0.0.0.0:3030",
                     "http://0.0.0.0:3000", 
                     "http://192.168.31.192:4000", 
                     'http://localhost:3000', 
@@ -41,7 +42,7 @@ const corsOptionsDelegate = function (req, callback) {
 };
 
 app.use(cors(corsOptionsDelegate));
-*/
+
 //--> END configuración de cors
 
 //--> Configuración de body-parser
@@ -54,11 +55,13 @@ app.use(expresss.urlencoded({ extended: true })); */
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (req, res) => {res.send("Hola Mundo")})
-
+/* app.get('/', (req, res) => {
+    res.send('hello world');
+  }); */
+ 
 //--> Redireccionamos las rutas que vengan a api
 
-    // app.use("/api", apiRouter);
+  app.use("/api", apiRouter);
 
 /** Arrancamos el servidor */
 app.listen(port, () => {

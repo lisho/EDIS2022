@@ -2,36 +2,36 @@ const router = require('express').Router();
 
 /** Traemos el modelo /modelos si necesitamos datos de otras tablas */
 
-const { Caso, Tecnico } = require('../../db/db')
+const { Tecnico, User } = require('../../db/db')
 
 /** Generamos las rutas */
 
 router.get('/',async (req, res) => {
-    const tipo = await Caso.findAll( {include: Tecnico} );
-    res.json(tipo);
+    const data = await Tecnico.findAll( {include: User} );
+    res.json(data);
 })
 
 router.post('/', async (req, res) => {
-    const tipo = await Caso.create(req.body);
-    res.json(tipo);
+    const data = await Tecnico.create(req.body);
+    res.json(data);
 })
 
 router.put('/:id', async (req, res) =>{
 
-    await Caso.update(req.body, {
+    await Tecnico.update(req.body, {
         where: {id: req.params.id}
     });
 
-    const tipos = await Caso.findByPk(req.body.id);
-    res.json(tipos);
+    const data = await Tecnico.findByPk(req.body.id);
+    res.json(data);
 })
 
 router.delete('/:id', async (req, res) =>{
-    await Caso.destroy({
+    await Tecnico.destroy({
         where: {id: req.params.id}
     });
-    const tipos = await Caso.findAll();
-    res.json(tipos);
+    const data = await Tecnico.findAll();
+    res.json(data);
 })
 
 module.exports = router;

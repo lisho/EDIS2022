@@ -25,7 +25,7 @@ const port = process.env.PORT || 3030;
 
 const allowlist = ["http://0.0.0.0:4000", 
                     "http://0.0.0.0:3030",
-                    "http://0.0.0.0:3000", 
+                    "http://0.0.0.0:3003", 
                     "http://192.168.31.192:4000", 
                     'http://localhost:3000', 
                     'http://192.168.0.115:3000'];

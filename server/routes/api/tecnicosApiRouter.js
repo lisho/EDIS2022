@@ -22,7 +22,7 @@ router.put('/:id', async (req, res) =>{
         where: {id: req.params.id}
     });
 
-    const data = await Tecnico.findByPk(req.body.id);
+    const data = await Tecnico.findAll();
     res.json(data);
 })
 

@@ -4,7 +4,35 @@ import styles from '../styles/Home.module.css'
 
 export default function Home() {
   return (
-    <div className={styles.container}>
+
+    <>
+      <Head>
+        <title>EDIS.LEON</title>
+        <meta name="description" content="App para gestión de casos EDIS-León" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+      <main className={styles.main}>
+
+              <h1 className={styles.title}>
+                EDIS León
+                
+              </h1>
+              <p className={styles.description}>
+                App para gestión de casos EDIS-León
+              </p>
+ 
+      </main>
+      
+      </>
+
+
+
+
+
+
+
+   /*  <div className={styles.container}>
       <Head>
         <title>EDIS</title>
         <meta name="description" content="App para gestión de casos EDIS-León" />
@@ -64,6 +92,6 @@ export default function Home() {
           </span>
         </a>
       </footer>
-    </div>
+    </div> */
   )
 }

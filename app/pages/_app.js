@@ -1,5 +1,5 @@
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-/* import DefaultLayout from "../layouts/DefaultLayout"; */
+import DefaultLayout from "../layouts/DefaultLayout"; 
 import "@fontsource/roboto";
 import "@fontsource/montserrat";
 import "@fontsource/inter";
@@ -22,9 +22,9 @@ const theme = extendTheme({
 function MyApp({ Component, pageProps }) {
   return (
     <ChakraProvider  theme={theme} >
-        {/* <DefaultLayout> */}
+        <DefaultLayout> 
           <Component {...pageProps} />
-        {/* </DefaultLayout> */}
+        </DefaultLayout> 
       </ChakraProvider>
   )
 }

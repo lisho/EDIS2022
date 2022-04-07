@@ -104,7 +104,7 @@ const UsuarioItem = ({
         </Box>
 
         <Button
-          colorScheme="blue"
+          colorScheme="teal"
           size="sm"
           m="2px"
           onClick={() => handleEditar(usuario)}
@@ -113,7 +113,7 @@ const UsuarioItem = ({
         </Button>
 
         <Button
-          colorScheme="red"
+          colorScheme="orange"
           size="sm"
           m="2px"
           onClick={() => handleBorrar(usuario)}

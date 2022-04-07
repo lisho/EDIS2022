@@ -17,7 +17,7 @@ import crearNuevoElementoEnBd from "../helpers/crearNuevoElementoEnBD";
 import editarElementoEnBd from "../helpers/editarElementoEnBD";
 import borrarElementoEnBd from "../helpers/borrarElementoEnBD";
 
-import FormularioUsuario from "../components/FormularioUsuario";
+import FormularioUsuario from "../components/formularios/FormularioUsuario";
 import Usuario from "../components/UsuarioItem";
 import { Icon, AddIcon } from "@chakra-ui/icons";
 

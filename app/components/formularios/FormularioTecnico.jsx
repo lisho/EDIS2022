@@ -14,7 +14,7 @@ import {
   useOutsideClick,
 } from "@chakra-ui/react";
 
-const FormularioUsuario = ({
+const FormularioTecnico = ({
   isOpen,
   onOpen,
   onClose,
@@ -69,7 +69,7 @@ const FormularioUsuario = ({
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
-            {usuarioParaEditar ? "Editar usuario" : "Crear nuevo usuario"}
+            {usuarioParaEditar ? "Editar Técnico" : "Crear nuevo técnico"}
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
@@ -81,13 +81,14 @@ const FormularioUsuario = ({
                 value={nombre}
                 name="nombre"
                 onChange={(e) => handleInputChange(e)}
+                
               />
             </FormControl>
 
             <FormControl>
               <FormLabel>Perfil profesional</FormLabel>
               <Input
-                ref={initialRef}
+                
                 placeholder="Perfil profesional"
                 value={categoria}
                 name="categoria"
@@ -98,7 +99,7 @@ const FormularioUsuario = ({
             <FormControl>
               <FormLabel>Código de Técnico</FormLabel>
               <Input
-                ref={initialRef}
+                
                 placeholder="Código de Técnico"
                 value={denominacionT}
                 name="denominacionT"
@@ -109,7 +110,7 @@ const FormularioUsuario = ({
             <FormControl>
               <FormLabel>Telefono</FormLabel>
               <Input
-                ref={initialRef}
+                
                 placeholder="Telefono"
                 value={telefono}
                 name="telefono"
@@ -120,7 +121,7 @@ const FormularioUsuario = ({
             <FormControl>
               <FormLabel>Email</FormLabel>
               <Input
-                ref={initialRef}
+                
                 placeholder="Email"
                 value={email}
                 name="email"
@@ -131,7 +132,7 @@ const FormularioUsuario = ({
             <FormControl>
               <FormLabel>Equipo EDIS</FormLabel>
               <Input
-                ref={initialRef}
+                
                 placeholder="Equipo EDIS"
                 value={equipoEdis}
                 name="equipoEdis"
@@ -142,7 +143,7 @@ const FormularioUsuario = ({
             {/* <FormControl>
               <FormLabel>Foto</FormLabel>
               <Input
-                ref={initialRef}
+                
                 placeholder="Foto"
                 value={foto}
                 name="foto"
@@ -164,4 +165,4 @@ const FormularioUsuario = ({
   );
 };
 
-export default FormularioUsuario;
+export default FormularioTecnico;

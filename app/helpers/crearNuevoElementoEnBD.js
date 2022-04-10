@@ -18,7 +18,8 @@ const crearNuevoElementoEnBd = (url, data, setEstado, estado) => {
   })
     .then((res) => res.json())
     .catch((error) => console.error("Error:", error))
-    .then((response) => setEstado([response, ...estado]));
+    .then((response) => 
+      setEstado([response, ...estado]) );
 };
 
 export default crearNuevoElementoEnBd;

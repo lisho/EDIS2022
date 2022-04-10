@@ -7,7 +7,7 @@ import {
   Text,
   Grid,
   GridItem,
-  Flex
+  Flex,
 } from "@chakra-ui/react";
 import { useEffect, useState, useContext } from "react";
 import useIsMounted from "react-is-mounted-hook";
@@ -18,41 +18,50 @@ import editarElementoEnBd from "../helpers/editarElementoEnBD";
 import borrarElementoEnBd from "../helpers/borrarElementoEnBD";
 
 import FormularioUsuario from "../components/formularios/FormularioUsuario";
-import Usuario from "../components/UsuarioItem";
+import UserItem from "../components/UserItem";
 import { Icon, AddIcon } from "@chakra-ui/icons";
 
 const valoresIniciales = {
   id: null,
-  nombre: "",
-  apellidos: "",
-  dni: "",
-  telefono: "",
-  email: "",
   username: "",
   password: "",
   rol: "",
-  foto: "",
+  avatar: "",
+  tecnicoId: "",
+};
+
+/**
+ * Objeto de configuración del componente
+ * Modificar los datos para PAGE diferente.
+ */
+
+const componetConfig = {
+  url: "http://0.0.0.0:3033/api/users/",
+  botonNav: "Usuarios",
+  titulo: "Usuarios",
+  tituloLista: "Listado de todos los usuarios registrados",
+  botonNuevo: "Nuevo Usuario",
 };
 
 const Users = () => {
-  const [usuarios, setUsuarios] = useState([]); // Array de todas las tareas
+  const [usuarios, setUsuarios] = useState([]); // Array de todos los usuarios
   const [usuarioParaEditar, setUsuarioParaEditar] = useState(null); // Se llena cuando hay una tarea para editar
 
   const { isOpen, onOpen, onClose } = useDisclosure(); // Manejador del modal
   const [formValues, setFormValues] = useState(valoresIniciales);
   const isMounted = useIsMounted();
   const { setBotonActivado } = usePaginaActivaContext();
-                            
+
   useEffect(() => {
-    isMounted && setBotonActivado("Usuarios");
+    isMounted && setBotonActivado(componetConfig.botonNav);
   }, [isMounted]);
 
   useEffect(() => {
-    fetch("http://0.0.0.0:3033/api/casos")
+    fetch(componetConfig.url)
       .then((response) => response.json())
       .then((data) => {
         setUsuarios(data);
-        console.log(data);
+        console.log("Listado recibido: ", data);
       });
   }, []);
 
@@ -68,9 +77,9 @@ const Users = () => {
     };
 
     console.log(nuevoUsuario);
-    
+
     crearNuevoElementoEnBd(
-      "http://0.0.0.0:3030/api/usuarios/registro",
+      componetConfig.url + "/registro",
       nuevoUsuario,
       setUsuarios,
       usuarios
@@ -92,7 +101,7 @@ const Users = () => {
     );  */
 
     editarElementoEnBd(
-      "http://0.0.0.0:3030/api/usuarios/" + usuarioEditado.id,
+      componetConfig.url + usuarioEditado.id,
       usuarioEditado,
       setUsuarios
     );
@@ -103,10 +112,7 @@ const Users = () => {
   };
 
   const handleBorrar = (usuarioParaBorrar) => {
-    borrarElementoEnBd(
-      "http://0.0.0.0:3030/api/usuarios/" + usuarioParaBorrar.id,
-      setUsuarios
-    );
+    borrarElementoEnBd( componetConfig.url + usuarioParaBorrar.id, setUsuarios);
   };
 
   const abrirModal = () => {
@@ -117,7 +123,7 @@ const Users = () => {
   return (
     <>
       <Heading as="h1" m="15px" size="xl">
-        Usuarios
+        {componetConfig.titulo}
       </Heading>
       <Button
         p="10px"
@@ -128,34 +134,33 @@ const Users = () => {
       >
         <Icon as={AddIcon} fontSize="xl" color="white" />
         <Text ml={5} display="flex">
-          nuevo usuario
+          {componetConfig.botonNuevo}
         </Text>
       </Button>
       <Heading as="h3" m="15px" size="md" textAlign="center">
-        Listado de todos los usuarios registrados
+        {componetConfig.tituloLista}
       </Heading>
 
       <Flex justifyContent="center" flexWrap="wrap" maxWidth="80%">
         {console.log(usuarios)}
         {usuarios.map((usuario) => (
-
-            <Flex key={usuario?.id}>
-                <Usuario
-                    usuario={usuario}
-                    usuarios={usuarios}
-                    usuarioParaEditar={usuarioParaEditar}
-                    setUsuarioParaEditar={setUsuarioParaEditar}
-                    handleBorrar={handleBorrar}
-                    onOpen={onOpen}
-                />
-           </Flex>
+          
+          <Flex key={usuario?.id}>
+            <UserItem
+              usuario={usuario}
+              usuarios={usuarios}
+              usuarioParaEditar={usuarioParaEditar}
+              setUsuarioParaEditar={setUsuarioParaEditar}
+              handleBorrar={handleBorrar}
+              onOpen={onOpen}
+            />
+          </Flex>
 
           /* <ListItem key={usuario?.id}>
             
           </ListItem> */
-
         ))}
-        </Flex>
+      </Flex>
       <FormularioUsuario
         isOpen={isOpen}
         onOpen={onOpen}

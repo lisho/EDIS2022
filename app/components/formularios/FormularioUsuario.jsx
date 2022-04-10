@@ -11,7 +11,9 @@ import {
   FormLabel,
   Input,
   Button,
+  Select,
   useOutsideClick,
+  FormHelperText,
 } from "@chakra-ui/react";
 
 const FormularioUsuario = ({
@@ -27,8 +29,18 @@ const FormularioUsuario = ({
   valoresIniciales,
 }) => {
   const initialRef = useRef();
+  const [listaTecnicos, setListaTecnicos] = useState([]); // Array de todos los usuarios
+  const { username, password, rol, avatar, tecnicoId } = formValues;
 
-  const { nombre, apellidos, dni, telefono, email, username, password, rol, foto} = formValues;
+  /* Guardamos los técnicos para el select del formulario */
+  useEffect(() => {
+    fetch("http://0.0.0.0:3033/api/tecnicos/")
+      .then((response) => response.json())
+      .then((data) => {
+        setListaTecnicos(data);
+        console.log(data);
+      });
+  }, []);
 
   const handleInputChange = (e) => {
     const changedFormValues = {
@@ -45,7 +57,8 @@ const FormularioUsuario = ({
     if (usuarioParaEditar) {
       handleEditar(formValues);
     } else {
-      handleAdd(formValues);
+      /*console.log(formValues);*/
+       handleAdd(formValues); 
     }
     console.log("Nueva tarea enviada...");
     setFormValues(valoresIniciales);
@@ -74,58 +87,37 @@ const FormularioUsuario = ({
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl>
-              <FormLabel>Nombre</FormLabel>
-              <Input
-                ref={initialRef}
-                placeholder="Nombre"
-                value={nombre}
-                name="nombre"
+              <FormLabel>
+                Seleccniona la persona a la que quieres asignar un permiso de
+                usuario
+              </FormLabel>
+              <Select 
+                name="tecnicoId"
+                placeholder={tecnicoId? listaTecnicos.find(tecnico => tecnico.id == tecnicoId).username : "Selecciona un tipo de etiqueta"}
                 onChange={(e) => handleInputChange(e)}
-              />
-            </FormControl>
+              >
+                {/* <option >Selecciona una persona</option> */}
+                {listaTecnicos.map((tecnico) => (
 
-            <FormControl>
-              <FormLabel>Apellidos</FormLabel>
-              <Input
-                ref={initialRef}
-                placeholder="Apellidos"
-                value={apellidos}
-                name="apellidos"
-                onChange={(e) => handleInputChange(e)}
-              />
-            </FormControl>
+                  <option key={tecnico.id} value={tecnico.id}>
+                    {tecnico.nombre}
+                  </option>
+                ))}
+              </Select>
 
-            <FormControl>
-              <FormLabel>DNI</FormLabel>
-              <Input
-                ref={initialRef}
-                placeholder="DNI"
-                value={dni}
-                name="dni"
+             {/*  <Select
+                placeholder={etiquetaTipo? etiquetaTipo.tipo : "Selecciona un tipo de etiqueta"}
+                name="etiquetaTipoId"
+                
                 onChange={(e) => handleInputChange(e)}
-              />
-            </FormControl>
+              >
+               { listaTiposEtiqueta.map(tipo => 
+                  etiquetaTipo?.tipo != tipo.tipo &&
+                  <option key={uuidv4()} value={tipo.id}>{tipo.tipo}</option>
+                
+                )}
 
-            <FormControl>
-              <FormLabel>Telefono</FormLabel>
-              <Input
-                ref={initialRef}
-                placeholder="Telefono"
-                value={telefono}
-                name="telefono"
-                onChange={(e) => handleInputChange(e)}
-              />
-            </FormControl>
-
-            <FormControl>
-              <FormLabel>Email</FormLabel>
-              <Input
-                ref={initialRef}
-                placeholder="Email"
-                value={email}
-                name="email"
-                onChange={(e) => handleInputChange(e)}
-              />
+              </Select> */}
             </FormControl>
 
             <FormControl>
@@ -137,6 +129,7 @@ const FormularioUsuario = ({
                 name="username"
                 onChange={(e) => handleInputChange(e)}
               />
+             
             </FormControl>
 
             <FormControl>
@@ -148,6 +141,7 @@ const FormularioUsuario = ({
                 name="password"
                 onChange={(e) => handleInputChange(e)}
               />
+              <FormHelperText>Usa una contraseña de al menos 6 caracteres</FormHelperText>
             </FormControl>
 
             <FormControl>
@@ -162,16 +156,15 @@ const FormularioUsuario = ({
             </FormControl>
 
             <FormControl>
-              <FormLabel>Foto</FormLabel>
+              <FormLabel>Avatar</FormLabel>
               <Input
                 ref={initialRef}
-                placeholder="Foto"
-                value={foto}
-                name="foto"
+                placeholder="Avatar"
+                value={avatar}
+                name="avatar"
                 onChange={(e) => handleInputChange(e)}
               />
             </FormControl>
-
           </ModalBody>
 
           <ModalFooter>

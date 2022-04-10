@@ -18,7 +18,7 @@ import editarElementoEnBd from "../helpers/editarElementoEnBD";
 import borrarElementoEnBd from "../helpers/borrarElementoEnBD";
 
 import FormularioTecnico from "../components/formularios/FormularioTecnico";
-import Usuario from "../components/UsuarioItem";
+import Tecnico from "../components/TecnicoItem";
 import { Icon, AddIcon } from "@chakra-ui/icons";
 
 const valoresIniciales = {
@@ -34,7 +34,20 @@ const valoresIniciales = {
   foto: "",
 };
 
-const Users = () => {
+/**
+ * Objeto de configuración del componente
+ * Modificar los datos para PAGE diferente.
+ */
+
+const componetConfig = {
+  url: "http://0.0.0.0:3033/api/tecnicos/",
+  botonNav: "Tecnicos",
+  titulo: "Técnicos EDIS",
+  tituloLista: "Listado de todos los técnicos registrados",
+  botonNuevo: "Nuevo Técnico"
+}
+
+const Tecnicos = () => {
   const [elementos, setElementos] = useState([]); // Array de todas las tareas
   const [elementoParaEditar, setElementoParaEditar] = useState(null); // Se llena cuando hay una tarea para editar
 
@@ -44,15 +57,11 @@ const Users = () => {
   const { setBotonActivado } = usePaginaActivaContext();
                             
   useEffect(() => {
-    isMounted && setBotonActivado("Tecnicos");
+    isMounted && setBotonActivado(componetConfig.botonNav);
   }, [isMounted]);
 
   useEffect(() => {
-    console.log("cambio en el estado:", elementos);
-  }, [elementos])
-
-  useEffect(() => {
-    fetch("http://0.0.0.0:3033/api/tecnicos")
+    fetch(componetConfig.url)
       .then((response) => response.json())
       .then((data) => {
         setElementos(data);
@@ -74,7 +83,7 @@ const Users = () => {
     console.log(nuevoElemento);
     
     crearNuevoElementoEnBd(
-      "http://0.0.0.0:3033/api/tecnicos",
+      componetConfig.url,
       nuevoElemento,
       setElementos,
       elementos
@@ -94,9 +103,9 @@ const Users = () => {
     /*  const tareasCambiadas = tareas.map((tarea) =>
       tarea.id === elementoEditado.id ? elementoEditado : tarea
     );  */
-
+    /* console.log("elementoEditado", elementoEditado); */
     editarElementoEnBd(
-      "http://0.0.0.0:3033/api/tecnicos/" + elementoEditado.id,
+      componetConfig.url + elementoEditado.id,
       elementoEditado,
       setElementos
     );
@@ -108,7 +117,7 @@ const Users = () => {
 
   const handleBorrar = (elementoParaBorrar) => {
     borrarElementoEnBd(
-      "http://0.0.0.0:3033/api/tecnicos/" + elementoParaBorrar.id,
+      componetConfig.url + elementoParaBorrar.id,
       setElementos
     );
   };
@@ -121,7 +130,7 @@ const Users = () => {
   return (
     <>
       <Heading as="h1" m="15px" size="xl">
-        Técnicos EDIS
+        {componetConfig.titulo}
       </Heading>
       <Button
         p="10px"
@@ -132,11 +141,11 @@ const Users = () => {
       >
         <Icon as={AddIcon} fontSize="xl" color="white" />
         <Text ml={5} display="flex">
-          Nuevo Técnico
+          {componetConfig.botonNuevo}
         </Text>
       </Button>
       <Heading as="h3" m="15px" size="md" textAlign="center">
-        Listado de todos los técnicos registrados
+        {componetConfig.tituloLista}
       </Heading>
 
       <Flex justifyContent="center" flexWrap="wrap" maxWidth="80%">
@@ -144,7 +153,7 @@ const Users = () => {
         {elementos.map((elemento) => (
 
             <Flex key={elemento?.id}>
-                <Usuario
+                <Tecnico
                     usuario={elemento}
                     usuarios={elementos}
                     usuarioParaEditar={elementoParaEditar}
@@ -176,4 +185,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default Tecnicos;

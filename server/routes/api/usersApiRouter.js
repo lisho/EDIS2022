@@ -11,8 +11,9 @@ router.get('/',async (req, res) => {
     res.json(data);
 })
 
-router.post('/', async (req, res) => {
-    const data = await User.create(req.body);
+router.post('/registro', async (req, res) => {
+    const nuevoRegistro = await User.create(req.body);
+    const data = await User.findByPk(nuevoRegistro.id, {include: Tecnico});
     res.json(data);
 })
 
@@ -22,7 +23,7 @@ router.put('/:id', async (req, res) =>{
         where: {id: req.params.id}
     });
 
-    const data = await User.findByPk(req.body.id);
+    const data = await User.findAll( {include: Tecnico} );
     res.json(data);
 })
 
@@ -30,7 +31,7 @@ router.delete('/:id', async (req, res) =>{
     await User.destroy({
         where: {id: req.params.id}
     });
-    const data = await User.findAll();
+    const data = await User.findAll( {include: Tecnico} );
     res.json(data);
 })
 

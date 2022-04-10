@@ -8,7 +8,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-const UsuarioItem = ({
+const TecnicoItem = ({
   usuario,
   usuarios,
   setUsuarios,
@@ -125,4 +125,4 @@ const UsuarioItem = ({
   );
 };
 
-export default UsuarioItem;
+export default TecnicoItem;
